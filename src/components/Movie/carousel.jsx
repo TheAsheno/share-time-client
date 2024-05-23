@@ -1,21 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { initCarousel, handleMouseEnter, currentIndex } from './index.js';
+import MovieData from '../../assets/dicts/MovieImages.json';
 
 const Carousel = () => {
+    const [images, setImagesState] = useState([]);
+    useEffect(() => {
+        setImagesState(MovieData);
+    }, []);
     useEffect(() => {
         initCarousel();
         return () => {
             handleMouseEnter();
         };
-    }, []);
-
-    const images = [
-        "images/batman.jpg",
-        "images/interstellar.jpg",
-        "images/The_Shawshank_Redemption.jpg",
-        "images/joker.jpg",
-        "images/the-legend-of-1900.jpg"
-    ];
+    }, [images]);
 
     return (
         <section className="py-5 bg-tertiary bg-cover bg-size--contain" style={{ backgroundColor: "#153448" }}>

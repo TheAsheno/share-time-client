@@ -10,18 +10,18 @@ const MusicPlayer = () => {
             .then(response => response.data)
             .then(file => {
                 setFiles(file);
-                setCurrentFile(`audio/${file[0].data}.mp3`);
-                console.log(currentFile);
+                setCurrentFile(`audios/${file[0].data}.mp3`);
             });
     }, []);
 
     const musicPlaying = (index) => {
-        setCurrentFile(`audio/${files[index].data}.mp3`);
+        setCurrentFile(`audios/${files[index].title}.mp3`);
     };
 
     return (
-        <div>
-            <audio id="audio1" src={currentFile} controls />
+        <section>
+            <audio id="audio1" src={currentFile} controls/>
+            <h2>播放列表</h2>
             <table id="myTable">
                 <tbody>
                     {files.map((file, index) => (
@@ -39,7 +39,7 @@ const MusicPlayer = () => {
                     ))}
                 </tbody>
             </table>
-        </div>
+        </section>
     );
 };
 

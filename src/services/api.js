@@ -16,7 +16,7 @@ const getApi = () => {
 }
 
 const getMusic = () => {
-  return http.get("/api/music");
+  return http.get("/api/musiclist");
 }
 
 const server = {
