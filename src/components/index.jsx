@@ -1,8 +1,8 @@
-import Navbar from "./Navbar/navbar"
-import Movie from "./Movie/movie"
-import Home from "./Home/home"
-import Music from "./Music/music"
-import Game from "./Game/game"
+import Navbar from "./Navbar/Navbar"
+import Movie from "./Movie/Movie"
+import Home from "./Home/Home"
+import Music from "./Music/Music"
+import Game from "./Game/Game"
 
 export {
     Navbar,
