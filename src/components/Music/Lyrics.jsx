@@ -1,6 +1,6 @@
 import React from "react";
 
-const Lyrics = ({ lyrics }) => {
+const Lyrics = ({ currentSong }) => {
     return (
         <div className="music-lyricify">
             

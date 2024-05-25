@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 
-const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, files, currentIndex }) => {
+const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, currentSong }) => {
     const [bartime, setBarTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const isDragging = useRef(false);
@@ -8,7 +8,6 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, f
     const [volume, setVolume] = useState(0.3);
     const [isMuted, setIsMuted] = useState(false);
     const [isLooping, setIsLooping] = useState(false);
-    const currentSong = files[currentIndex];
     const handleChange = (event) => {
         setBarTime(event.target.value);
     };
@@ -54,9 +53,6 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, f
             };
         }
     }, [audioRef]);
-    if (!currentSong) {
-        return <div>Loading...</div>;
-    }
     const timeprogress = (bartime - 0) / (duration - 0) * 100 + 0.5;
     const volumeprogress = (volume - 0) / (1 - 0) * 100;
     return (
