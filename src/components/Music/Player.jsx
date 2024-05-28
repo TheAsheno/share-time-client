@@ -56,7 +56,7 @@ const Player = () => {
     return (
         <section className='music-player-section'>
             <audio src={`http://localhost:3001/music/audios/${encodeURIComponent(currentSong.name)}.${currentSong.type}`} ref={audioRef} />
-            <Lyricify currentSong={currentSong} />
+            <Lyricify currentSong={currentSong} audioRef={audioRef} />
             <div className={`list-container ${isListShow ? 'active' : ''}`}>
                 <List files={files} musicPlaying={musicPlaying} currentIndex={currentIndex} />
             </div>

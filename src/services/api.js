@@ -19,10 +19,15 @@ const getMusic = () => {
   return http.get("/api/musiclist");
 }
 
+const getLyrics = (song) => {
+  return http.get(`/music/lyrics/${song}.lrc`);
+}
+
 const server = {
   upload,
   getApi,
-  getMusic
+  getMusic,
+  getLyrics
 }
 
 export default server;

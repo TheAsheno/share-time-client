@@ -4,7 +4,8 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, c
     const [bartime, setBarTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const isDragging = useRef(false);
-    const [isHovered, setIsHovered] = useState(false);
+    const [isBarHovered, setIsBarHovered] = useState(false);
+    const [isVolumnHovered, setIsVolumnHovered] = useState(false);
     const [volume, setVolume] = useState(0.3);
     const [isMuted, setIsMuted] = useState(false);
     const [isLooping, setIsLooping] = useState(false);
@@ -37,19 +38,23 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, c
     }
     useEffect(() => {
         if (audioRef.current) {
-            const audioElement = audioRef.current;
-            audioElement.volume = 0.3;
-            audioElement.addEventListener('loadedmetadata', () => {
-                setDuration(audioElement.duration);
-            });
-            audioElement.addEventListener('timeupdate', () => {
+            const audio = audioRef.current;
+            audio.volume = 0.3;
+            const ControllerLoadedMetadata = () => {
+                setDuration(audio.duration);
+            };
+            const ControllerTimeUpdate = () => {
                 if (!isDragging.current) {
-                    setBarTime(audioElement.currentTime);
+                    setBarTime(audio.currentTime);
                 }
-            });
+            };
+            audio.addEventListener('loadedmetadata', ControllerLoadedMetadata);
+            audio.addEventListener('timeupdate', ControllerTimeUpdate);
             return () => {
-                audioElement.removeEventListener('loadedmetadata', () => { });
-                audioElement.removeEventListener('timeupdate', () => { });
+                if (audio) {
+                    audio.removeEventListener('loadedmetadata', ControllerLoadedMetadata);
+                    audio.removeEventListener('timeupdate', ControllerTimeUpdate);
+                }
             };
         }
     }, [audioRef]);
@@ -58,7 +63,7 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, c
     return (
         <div className="music-navbar row">
             <div className="music-info col-3 d-none d-md-flex">
-            <img src={`http://localhost:3001/music/covers/${encodeURIComponent(currentSong.album)}.jpg`} alt={currentSong.name} className="music-image" />
+                <img src={`http://localhost:3001/music/covers/${encodeURIComponent(currentSong.album)}.jpg`} alt={currentSong.name} className="music-image" />
                 <div>
                     <p className="music-name">{currentSong.name}</p>
                     <p className="music-author">{currentSong.artist}</p>
@@ -74,11 +79,11 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, c
                         <i className="bi bi-skip-forward-fill active" onClick={onNext} />
                     </div>
                     <div className="volume-container"
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}>
-                        <i className={`bi bi-volume-up-fill side ${isMuted ? '' : 'active'} ${isHovered ? 'bright' : ''}`} onClick={onChangeVolume} />
-                        <i className={`bi bi-volume-mute-fill side ${isMuted ? 'active' : ''} ${isHovered ? 'bright' : ''}`} onClick={onChangeVolume} />
-                        <input type="range" className={`volume-slider ${isHovered ? 'active' : ''}`} min="0" max="1" value={volume} step="0.05" onChange={handleVolumeChange}
+                        onMouseEnter={() => setIsVolumnHovered(true)}
+                        onMouseLeave={() => setIsVolumnHovered(false)}>
+                        <i className={`bi bi-volume-up-fill side ${isMuted ? '' : 'active'} ${isVolumnHovered ? 'bright' : ''}`} onClick={onChangeVolume} />
+                        <i className={`bi bi-volume-mute-fill side ${isMuted ? 'active' : ''} ${isVolumnHovered ? 'bright' : ''}`} onClick={onChangeVolume} />
+                        <input type="range" className={`volume-slider ${isVolumnHovered ? 'hovered' : ''}`} min="0" max="1" value={volume} step="0.05" onChange={handleVolumeChange}
                             style={{
                                 background: `linear-gradient(to right, white 0%, white ${volumeprogress}%, grey ${volumeprogress}%, grey 100%)`
                             }} />
@@ -86,7 +91,7 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, c
                 </div>
                 <div className="music-seek-bar-container">
                     <p className="current-time">{formatTime(bartime)}</p>
-                    <input type="range" className="music-seek-bar" id="slider" value={bartime} min="0" max={duration}
+                    <input type="range" className={`music-seek-bar ${isBarHovered ? 'hovered' : ''}`} value={bartime} min="0" max={duration}
                         onMouseDown={() => { isDragging.current = true; }}
                         onMouseUp={() => {
                             isDragging.current = false;
@@ -94,9 +99,11 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, c
                                 audioRef.current.currentTime = bartime;
                             }
                         }}
+                        onMouseEnter={() => setIsBarHovered(true)}
+                        onMouseLeave={() => setIsBarHovered(false)}
                         onChange={handleChange}
                         style={{
-                            background: `linear-gradient(to right, white 0%, white ${timeprogress}%, grey ${timeprogress}%, grey 100%)`
+                            background: `linear-gradient(to right, ${isBarHovered ? '#41B06E' : 'white'} 0%, ${isBarHovered ? '#41B06E' : 'white'} ${timeprogress}%, grey ${timeprogress}%, grey 100%)`
                         }} />
                     <p className="duration">{formatTime(duration)}</p>
                 </div>

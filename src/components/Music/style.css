@@ -28,7 +28,7 @@
     border-radius: 5px;
 }
 
-.music-seek-bar {
+input[type="range"].music-seek-bar {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -39,7 +39,7 @@
     border-radius: 5px;
 }
 
-.music-seek-bar::-webkit-slider-thumb {
+input[type="range"].music-seek-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 4px;
@@ -49,9 +49,9 @@
     cursor: pointer;
 }
 
-.music-seek-bar::-webkit-slider-thumb:hover {
-    width: 10px;
+input[type="range"].music-seek-bar.hovered::-webkit-slider-thumb {
     height: 10px;
+    width: 10px;
 }
 
 .current-song-name {
@@ -237,7 +237,7 @@ input[type="range"].volume-slider {
     transition: opacity 0.5s ease-in-out;
 }
 
-input[type=range].volume-slider.active {
+input[type=range].volume-slider.hovered {
     opacity: 1;
     display: block;
 }
@@ -255,11 +255,6 @@ input[type=range].volume-slider::-webkit-slider-thumb {
     background: white;
     border-radius: 50%;
     cursor: pointer;
-}
-
-.lyricify {
-    background-color: aliceblue;
-    height: calc(100vh - 194px);
 }
 
 .sidebar {
@@ -281,11 +276,13 @@ input[type=range].volume-slider::-webkit-slider-thumb {
     bottom: 120px;
     right: 20px;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
 .list-container.active {
     opacity: 1;
+    visibility: visible;
 }
 
 .list-border {
@@ -355,4 +352,37 @@ input[type=range].volume-slider::-webkit-slider-thumb {
     margin: 0;
     font-size: 14px;
     color: grey;
+}
+
+.music-lyricify {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: sans-serif;
+    background-color: grey;
+    color: #3D3B40;
+    height: calc(100vh - 194px);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.music-lyricify::-webkit-scrollbar {
+    width: 0px;
+}
+
+.music-lyricify p {
+    margin-bottom: 25px;
+}
+
+.white-lyric {
+    color: #EEEDEB;
+}
+
+.current-lyric {
+    color: whitesmoke;
+    filter: brightness(150%);
 }
