@@ -48,12 +48,17 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, c
                     setBarTime(audio.currentTime);
                 }
             };
+            const ControllerEnded = () => {
+                onNext();
+            };
             audio.addEventListener('loadedmetadata', ControllerLoadedMetadata);
             audio.addEventListener('timeupdate', ControllerTimeUpdate);
+            audio.addEventListener('ended', ControllerEnded);
             return () => {
                 if (audio) {
                     audio.removeEventListener('loadedmetadata', ControllerLoadedMetadata);
                     audio.removeEventListener('timeupdate', ControllerTimeUpdate);
+                    audio.addEventListener('ended', ControllerEnded);
                 }
             };
         }

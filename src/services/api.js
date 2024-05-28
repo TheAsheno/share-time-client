@@ -1,9 +1,9 @@
-import http from "../http-common";
+import { httpLocal } from "../http-common";
 
 const upload = (file, onUploadProgress) => {
   let formData = new FormData();
   formData.append("file", file);
-  return http.post("/upload", formData, {
+  return httpLocal.post("/upload", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -12,15 +12,15 @@ const upload = (file, onUploadProgress) => {
 };
 
 const getApi = () => {
-  return http.get("/api");
+  return httpLocal.get("/api");
 }
 
 const getMusic = () => {
-  return http.get("/api/musiclist");
+  return httpLocal.get("/api/musiclist");
 }
 
 const getLyrics = (song) => {
-  return http.get(`/music/lyrics/${song}.lrc`);
+  return httpLocal.get(`/music/lyrics/${song}.lrc`);
 }
 
 const server = {

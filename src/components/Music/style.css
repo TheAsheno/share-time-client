@@ -376,6 +376,12 @@ input[type=range].volume-slider::-webkit-slider-thumb {
 
 .music-lyricify p {
     margin-bottom: 25px;
+    cursor: pointer;
+}
+
+.lyric:hover {
+    color: whitesmoke;
+    filter: brightness(150%)
 }
 
 .white-lyric {
