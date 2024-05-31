@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
+import { AudioContext } from "./AudioContext";
 
-const List = ({ files, musicPlaying, currentIndex }) => {
+const List = () => {
+    const { files, musicPlaying, currentIndex, albumCovers } = useContext(AudioContext);
     const handleClick = (index) => {
         musicPlaying(index);
     };
@@ -14,7 +16,7 @@ const List = ({ files, musicPlaying, currentIndex }) => {
                         <tr key={index}>
                             <td>
                                 <div className="list-item" onClick={() => handleClick(index)}>
-                                    <img src={`http://localhost:3001/music/covers/${encodeURIComponent(file.album)}.jpg`} alt={file.name} className="music-image" />
+                                    <img src={albumCovers[file.album]} alt={file.name} className="music-image" />
                                     <div>
                                         <p className={`music-name ${currentIndex === index ? 'selected' : ''}`}>{file.name}</p>
                                         <p className="music-author">{file.artist}</p>

@@ -1,0 +1,253 @@
+.homepage {
+	--color-text: #fff;
+	--color-bg: #000;
+	--color-link: #6c6c6c;
+	--color-link-hover: #fff;
+	--color-title: #737476;
+	--color-bg-item: #282b27;
+	--color-menu-tag: #f0f0f0;
+	--color-menu-link: #e88e41;
+	--color-menu-link-hover: #fff;
+	--font-menu-link: rigatoni, serif;
+	--font-weight-menu-link: 400;
+	--font-size-menu-link: 5vw;
+	--clip-1: polygon(50% 0%, 20% 100%, 80% 100%);
+	font-family: soleil, Futura, "Trebuchet MS", Arial, sans-serif;
+	color: var(--color-text);
+	background-color: var(--color-bg);
+	position: relative;
+    top: -50px;
+}
+
+a {
+	text-decoration: none;
+	color: var(--color-link);
+	outline: none;
+}
+
+a:hover,
+a:focus {
+	color: var(--color-link-hover);
+	outline: none;
+}
+
+main {
+	position: relative;
+}
+
+.frame {
+	padding: 3rem 5vw;
+	position: relative;
+	z-index: 1000;
+}
+
+.frame-title {
+	font-size: 1rem;
+	margin: 0;
+}
+
+.frame-header--grid {
+	width: fit-content;
+	display: grid;
+	grid-template-columns: auto auto;
+}
+
+.frame-header--grid::before,
+.frame-header--grid::after {
+	content: '---';	
+}
+
+.frame-header--grid::before {
+	grid-area: 1 / 1 / 2 / 3;
+}
+
+.frame-header {
+	margin: 0;
+}
+
+.frame-header dd {
+	margin: 0 0 0 0.5rem;
+}
+
+.frame-header dd a {
+	text-decoration: underline;
+}
+
+.frame-header dd a:hover,
+.frame-header dd a:focus {
+	text-decoration: none;
+}
+
+.frame-pagetitle {
+	font-size: 1rem;
+	margin: 0 0 1rem;
+	font-weight: 600;
+	color: var(--color-title);
+}
+
+.frame-demos a:not(:last-child) {
+	margin-right: 1rem;
+}
+
+.frame-demos {
+	margin: 1rem 0;
+}
+
+.frame-demo--current,
+.frame-demo--current:hover {
+	color: var(--color-text);
+}
+
+.screens, 
+.screen-item, 
+.screen {
+	top: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	min-height: 100vh;
+}
+
+.screen-item {
+	opacity: 0;
+	background: var(--color-bg-item);
+	z-index: 1;
+}
+
+.screen-item:first-child {
+	opacity: 1;
+	z-index: 100;
+}
+
+.screen {
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: cover;
+	background-image: var(--bg-img);
+	will-change: opacity;
+}
+
+.screen--full {
+	opacity: 0.6;
+	will-change: transform;
+}
+
+.screen--clip-1 {
+	clip-path: var(--clip-1);
+}
+
+.screen--clip-2 {
+	clip-path: var(--clip-2);
+}
+
+.content {
+	padding: 2rem;
+	position: relative;
+	z-index: 100;
+}
+
+.menu {
+	display: flex;
+	flex-direction: column;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.menu-item {
+	display: inline-block;
+	text-align: left;
+	margin: 2vh 0;
+}
+
+.menu-item-tag {
+	color: var(--color-menu-tag);
+}
+
+.menu-item-link {
+    color: var(--color-menu-link);
+    font-family: var(--font-menu-link);
+    font-weight: var(--font-weight-menu-link);
+    font-size: 3rem;
+    line-height: 1;
+    display: block;
+    cursor: pointer;
+	transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.menu-item-link:hover,
+.menu-item-link:focus {
+	color: var(--color-menu-link-hover);
+	transform: scale(1.1);
+	transform-origin: 50% 60%;
+}
+
+@media screen and (min-width: 53em) {
+	.frame {
+		position: fixed;
+		text-align: left;
+		z-index: 1000;
+		top: 0;
+		left: 0;
+		display: grid;
+		align-content: space-between;
+		width: 100%;
+		max-width: none;
+		height: 100vh;
+		padding: 3rem 4rem;
+		pointer-events: none;
+		grid-template-columns: 30% 40% 30%;
+		grid-template-rows: auto auto auto;
+		grid-template-areas: 'header pagetitle menu'
+							'... ... ...'
+							'... ... demos';
+	}
+	.frame-pagetitle {
+		grid-area: pagetitle;
+		justify-self: center;
+	}
+	.frame-header {
+		grid-area: header;
+		justify-self: start;
+	}
+	.frame-nav a {
+		margin: 0 1rem 0 0;
+	}
+	.frame-demos {
+		margin: 0;
+		grid-area: demos;
+		justify-self: end;
+	}
+	.frame-menu {
+		grid-area: menu;
+		justify-self: end;
+	}
+	.frame a {
+		pointer-events: auto;
+	}
+	.content {
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		z-index: 100;
+	}
+	.menu {
+		margin: 0 auto;
+		max-width: 74vw;
+		text-align: center;
+		display: block;
+	}
+	.menu-item {
+		margin: 3vh 3vw;
+	}
+	.menu-item-tag {
+		margin: 0 0 0 0.25vw;
+	}
+	.menu-item-link {
+		font-size: var(--font-size-menu-link);
+	}
+}

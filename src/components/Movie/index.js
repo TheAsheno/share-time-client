@@ -1,6 +1,6 @@
 let carouselImages;
 export let imageCount;
-export let currentIndex = 4;
+export let currentIndex = 0;
 let timerId;
 
 export function initCarousel() {
@@ -37,6 +37,10 @@ function setupView() {
 
 export function handleClick(index) {
     return function() {
+        if (index == currentIndex) {
+            window.location.href = "#target1";
+            return;
+        }
         currentIndex = index;
         setupView();
     };

@@ -1,14 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
+import { AudioContext } from "./AudioContext";
 
-const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, currentSong }) => {
-    const [bartime, setBarTime] = useState(0);
-    const [duration, setDuration] = useState(0);
+const Controller = ({ onChangeList}) => {
+    const { currentSong, audioRef, onPrev, onNext, duration, volume, setVolume, isMuted, setIsMuted, isLooping, setIsLooping, albumCovers } = useContext(AudioContext);
     const isDragging = useRef(false);
     const [isBarHovered, setIsBarHovered] = useState(false);
     const [isVolumnHovered, setIsVolumnHovered] = useState(false);
-    const [volume, setVolume] = useState(0.3);
-    const [isMuted, setIsMuted] = useState(false);
-    const [isLooping, setIsLooping] = useState(false);
+    const [bartime, setBarTime] = useState(0);
     const handleChange = (event) => {
         setBarTime(event.target.value);
     };
@@ -30,6 +28,16 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, c
             }
         }
     }
+    const onPlay = () => {
+        if (audioRef.current) {
+            audioRef.current.play();
+        }
+    };
+    const onPause = () => {
+        if (audioRef.current) {
+            audioRef.current.pause();
+        }
+    };
     const onRepeat = () => {
         if (audioRef.current) {
             audioRef.current.loop = !audioRef.current.loop;
@@ -39,26 +47,19 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, c
     useEffect(() => {
         if (audioRef.current) {
             const audio = audioRef.current;
-            audio.volume = 0.3;
-            const ControllerLoadedMetadata = () => {
-                setDuration(audio.duration);
-            };
+            setBarTime(audio.currentTime);
+            if (!isMuted) {
+                audio.volume = volume;
+            }
             const ControllerTimeUpdate = () => {
                 if (!isDragging.current) {
                     setBarTime(audio.currentTime);
                 }
             };
-            const ControllerEnded = () => {
-                onNext();
-            };
-            audio.addEventListener('loadedmetadata', ControllerLoadedMetadata);
             audio.addEventListener('timeupdate', ControllerTimeUpdate);
-            audio.addEventListener('ended', ControllerEnded);
             return () => {
                 if (audio) {
-                    audio.removeEventListener('loadedmetadata', ControllerLoadedMetadata);
                     audio.removeEventListener('timeupdate', ControllerTimeUpdate);
-                    audio.addEventListener('ended', ControllerEnded);
                 }
             };
         }
@@ -68,7 +69,7 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, c
     return (
         <div className="music-navbar row">
             <div className="music-info col-3 d-none d-md-flex">
-                <img src={`http://localhost:3001/music/covers/${encodeURIComponent(currentSong.album)}.jpg`} alt={currentSong.name} className="music-image" />
+                <img src={albumCovers[currentSong.album]} alt={currentSong.name} className="music-image" />
                 <div>
                     <p className="music-name">{currentSong.name}</p>
                     <p className="music-author">{currentSong.artist}</p>
@@ -77,7 +78,7 @@ const Controller = ({ audioRef, onPlay, onPause, onPrev, onNext, onChangeList, c
             <div className="music-control-bar col-12 col-md-6">
                 <div className="controls">
                     <i className={`bi bi-repeat side ${isLooping ? 'active' : ''}`} onClick={onRepeat} />
-                    <div className="main">
+                    <div className="controls-main">
                         <i className="bi bi-skip-backward-fill active" onClick={onPrev} />
                         <i className={`bi bi-play-circle-fill center ${audioRef.current && !audioRef.current.paused ? '' : 'active'}`} onClick={onPlay} />
                         <i className={`bi bi-pause-circle-fill center ${audioRef.current && !audioRef.current.paused ? 'active' : ''}`} onClick={onPause} />

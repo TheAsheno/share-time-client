@@ -100,13 +100,13 @@ input[type="range"].music-seek-bar.hovered::-webkit-slider-thumb {
     font-size: 22px;
 }
 
-.main {
+.controls-main {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.controls .main i {
+.controls .controls-main i {
     display: none;
 }
 
@@ -114,17 +114,17 @@ input[type="range"].music-seek-bar.hovered::-webkit-slider-thumb {
     font-size: 20px;
 }
 
-.controls .main .center {
+.controls .controls-main .center {
     font-size: 30px;
     color: white;
 }
 
-.controls .main .center:active {
+.controls .controls-main .center:active {
     transform: scale(0.90);
     transition: transform 0.2s;
 }
 
-.controls .main i.active {
+.controls .controls-main i.active {
     display: inline;
 }
 

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import $ from 'jquery';
 export default class Navbar extends Component {
     componentDidMount() {
-        $(document).ready(function() {
-            $(".link-item").on("click", function () {
+        var linkItems = document.querySelectorAll('.link-item');
+        linkItems.forEach((linkItem) => {
+            linkItem.addEventListener('click', () => {
                 if (window.matchMedia('(max-width: 992px)').matches) {
-                    $(".navbar-toggler").trigger('click');
+                    var navbarToggler = document.querySelector('.navbar-toggler');
+                    navbarToggler.click();
                 }
             });
         });
@@ -34,13 +35,14 @@ export default class Navbar extends Component {
                                     <li><Link className="dropdown-item link-item" to="/movie">Movie</Link></li>
                                     <li><Link className="dropdown-item link-item" to="/music">Music</Link></li>
                                     <li><Link className="dropdown-item link-item" to="/game">Game</Link></li>
+                                    <li><Link className="dropdown-item link-item" to="/book">Book</Link></li>
                                 </ul>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link link-item" to="/">Log in</Link>
+                                <Link className="nav-link link-item" to="/board">Board</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link link-item" to="/">Register</Link>
+                                <Link className="nav-link link-item" to="/">Doc</Link>
                             </li>
                             <hr className="divider" style={{ border: 'none', borderTop: '2px solid #ffffff' }} />
                             <h6 className="dropdown-header font-weight-600 d-lg-none px-0">Social Media</h6>
@@ -54,6 +56,10 @@ export default class Navbar extends Component {
                 <style jsx="true">{`
                     .dropdown-item:active {
                     background-color: grey !important;
+                    }
+                    .navbar {
+                        z-index: 9999;
+                        font-family: soleil;
                     }
                 `}</style>
             </nav>

@@ -1,16 +1,14 @@
-import React, { useEffect, useState, useRef } from "react";
-import server from "../../services/api";
+import React, { useEffect, useState, useContext } from "react";
 import ColorThief from 'colorthief';
+import { AudioContext } from "./AudioContext";
 
-const Lyrics = ({ currentSong, audioRef }) => {
-    const [currentLyc, setCurrentLyc] = useState(0);
-    const [lyricList, setLyricList] = useState([]);
+const Lyrics = () => {
+    const { currentSong, audioRef, currentLyc, setCurrentLyc, lyricList, lyricRefs, albumCovers } = useContext(AudioContext);
     const [userIsScrolling, setUserIsScrolling] = useState(false);
-    const lyricRefs = useRef([]);
     const colorThief = new ColorThief();
     const img = new Image();
     img.crossOrigin = "anonymous";
-    img.src = `http://localhost:3001/music/covers/${encodeURIComponent(currentSong.album)}.jpg`;
+    img.src = albumCovers[currentSong.album];
     img.onload = function () {
         const palette = colorThief.getPalette(img, 2);
         const color1 = palette[0];
@@ -19,23 +17,6 @@ const Lyrics = ({ currentSong, audioRef }) => {
         musicLyricify.style.background = `linear-gradient(45deg, rgba(${color1[0]}, ${color1[1]}, ${color1[2]}, 0.9), rgba(${color2[0]}, ${color2[1]}, ${color2[2]}, 0.9))`;
         musicLyricify.style.backdropFilter = 'blur(10px)';
     };
-    useEffect(() => {
-        server.getLyrics(currentSong.name)
-            .then(response => response.data)
-            .then(lyrics => {
-                const lines = lyrics.split(/[\n]/);
-                const list = lines.map(line => {
-                    const temp = line.split(/\[(.+?)\]/);
-                    return {
-                        time: temp[1],
-                        lyc: temp[2]
-                    };
-                }).filter(v => v.lyc);
-                setCurrentLyc(0);
-                setLyricList(list);
-                lyricRefs.current = list.map(() => React.createRef());
-            });
-    }, [currentSong]);
     useEffect(() => {
         let scrollTimeout = null;
         const handleScroll = () => {
@@ -102,6 +83,7 @@ const Lyrics = ({ currentSong, audioRef }) => {
                     ref={lyricRefs.current[index]}
                     className={`lyric ${index === currentLyc ? 'current-lyric' : (index < currentLyc ? 'white-lyric' : '')}`}
                     onClick={() => {
+                        setUserIsScrolling(false);
                         audioRef.current.currentTime = timeToSeconds(lyric.time);
                     }}
                 >

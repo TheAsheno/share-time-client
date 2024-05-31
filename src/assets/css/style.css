@@ -1,3 +1,43 @@
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+.loading::before,
+.loading::after {
+	content: '';
+	position: fixed;
+	z-index: 1100;
+}
+
+.loading::before {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+}
+
+.loading::after {
+	top: 50%;
+	left: 50%;
+	width: 60px;
+	height: 60px;
+	margin: -30px 0 0 -30px;
+	border-radius: 50%;
+	opacity: 0.4;
+	background: #6c6c6c;
+	animation: loaderAnim 0.7s linear infinite alternate forwards;
+}
+
+@keyframes loaderAnim {
+	to {
+		opacity: 1;
+		transform: scale3d(0.5,0.5,1);
+	}
+}
+
 :root {
   --gap: 150px;
 }
@@ -8,56 +48,6 @@
   }
 }
 
-.carousel-item {
-  display: inline-block;
-  width: 400px;
-  height: 250px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-
-  transition: transform 1s ease-in-out, opacity 1s;
-}
-
-@media (max-width: 992px) {
-  .carousel-item {
-    width: 320px;
-    height: 200px;
-  }
-}
-
-.carousel-container {
-  width: 100%;
-  height: 500px;
-  perspective: 800px;
-  transform-style: preserve-3d;
-}
-
-.carousel-indicator {
-  background-color: gray;
-  display: inline-block;
-  height: 5px;
-  margin: 0 5px;
-  width: 50px;
-  border-radius: 5px;
-  transition: background-color 0.5s ease-in-out;
-}
-
-.carousel-indicator.active {
-  background-color: white;
-}
-
-.carousel-item {
-  z-index: 1;
-}
-
-.carousel-item.active {
-  z-index: 2;
-}
-
 body {
   margin: 0;
   font-family: "Quicksand", Arial, sans-serif;
@@ -65,6 +55,7 @@ body {
   font-size: 15px;
   line-height: 1.8;
   color: rgba(0, 0, 0, 0.7);
+  background-color: #282b27;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

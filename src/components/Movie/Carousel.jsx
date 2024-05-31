@@ -13,7 +13,6 @@ const Carousel = () => {
             handleMouseEnter();
         };
     }, [images]);
-
     return (
         <section className="py-5 bg-tertiary bg-cover bg-size--contain" style={{ backgroundColor: "#153448" }}>
             <div className="container text-center">
@@ -22,14 +21,14 @@ const Carousel = () => {
                         {images.map((src, index) => (
                             <img
                                 key={index}
-                                className={`carousel-item ${currentIndex === index ? 'active' : ''}`}
+                                className='carousel-item'
                                 src={src}
                                 alt="carousel item"
                             />
                         ))}
                         <div className="carousel-indicators">
                             {images.map((src, index) => (
-                                <span key={index} className={`carousel-indicator ${index === currentIndex ? 'active' : ''}`}></span>
+                                <span key={index} className='carousel-indicator'></span>
                             ))}
                         </div>
                     </div>
