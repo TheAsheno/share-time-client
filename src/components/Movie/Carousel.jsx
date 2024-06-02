@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { initCarousel, handleMouseEnter, currentIndex } from './index.js';
-import MovieData from '../../assets/dicts/MovieImages.json';
+import React, { useEffect } from 'react';
+import { initCarousel, handleMouseEnter } from './index.js';
 
-const Carousel = () => {
-    const [images, setImagesState] = useState([]);
-    useEffect(() => {
-        setImagesState(MovieData);
-    }, []);
+const Carousel = ({ MovieData }) => {
+    const images = MovieData.map(movie => movie.images);
     useEffect(() => {
         initCarousel();
         return () => {

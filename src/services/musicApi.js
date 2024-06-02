@@ -1,11 +1,11 @@
-import { httpLocal } from "../http-common";
+import http from "../http-common";
 
 const getMusicList = () => {
-    return httpLocal.get("/api/musiclist");
+    return http.get("/api/musiclist");
 }
 
 const getLyrics = (song) => {
-    return httpLocal.get(`/music/lyrics/${song}.lrc`);
+    return http.get(`/music/lyrics/${song}.lrc`);
 }
 
 const musicServer = {

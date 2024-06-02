@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './style.css';
 import Navigation from './navigation';
 const imagesLoaded = require('imagesloaded');
+const WebFont = require('webfontloader');
 
 export default class Home extends Component {
     componentDidMount() {
@@ -14,7 +15,7 @@ export default class Home extends Component {
         };
         const preloadFonts = () => {
             return new Promise((resolve, reject) => {
-                window.WebFont.load({
+                WebFont.load({
                     typekit: {
                         id: 'cze1cgq'
                     },

@@ -81,7 +81,7 @@ export const AudioProvider = ({ children }) => {
                 audio.removeEventListener('ended', onEnded);
             };
         }
-    }, [audioRef, files]);
+    }, [audioRef, files, onNext]);
     useEffect(() => {
         if (!isFirstLoad) {
             audioRef.current.oncanplaythrough = () => {

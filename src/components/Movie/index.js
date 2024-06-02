@@ -36,9 +36,14 @@ function setupView() {
 }
 
 export function handleClick(index) {
-    return function() {
-        if (index == currentIndex) {
-            window.location.href = "#target1";
+    return function () {
+        console.log('index', index, 'currentIndex', currentIndex);
+        if (index === currentIndex) {
+            const elementId = `movie-${index + 1}`;
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
             return;
         }
         currentIndex = index;

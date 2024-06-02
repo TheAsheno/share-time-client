@@ -1,13 +1,38 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 
-const Item = ({ id }) => {
+const Item = ({ id, data }) => {
+    const audioRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const onPlay = () => {
+        if (audioRef.current) {
+            audioRef.current.volume = 0.3;
+            audioRef.current.play();
+            setIsPlaying(true);
+        }
+    };
+    const onPause = () => {
+        if (audioRef.current) {
+            audioRef.current.pause();
+            setIsPlaying(false);
+        }
+    };
     return (
-        <div id={`${id}`}>
-            <div className="container">
-                <div className="row demo-2">
-                    <h2 className="trigger-headline trigger-headline--hidden"><span>M</span><span>o</span><span>t</span><span>i</span><span>o</span><span>n</span></h2>
-                    <div style={{ height: "300px" }} />
+        <div id={id} className="movie-item" style={{ '--bg-img': `url(${data.background})` }}>
+            <div className="movie-text movie-text-hidden">
+                <p>{data.text}</p>
+                {data.text2 && <p>{data.text2}</p>}
+            </div>
+            <h2 className="movie-info movie-info--hidden">
+                <div className="movie-headline" >
+                    <p className="movie-name">{data.name}</p><p className="movie-director">{data.director}</p>
                 </div>
+                <p className="movie-name2">{data.name2}</p>
+            </h2>
+            <div className="movie-extra">
+                <audio ref={audioRef} src={`${data.bgm}`} />
+                <i className={`bi bi-play-circle movie-bgm ${isPlaying ? '' : 'active'}`} onClick={onPlay} />
+                <i className={`bi bi-pause-circle movie-bgm ${isPlaying ? 'active' : ''}`} onClick={onPause} />
+                <i className="bi bi-box-arrow-up-right movie-link" onClick={() => window.open(`${data.link}`, "_blank")} />
             </div>
         </div>
     );

@@ -1,11 +1,11 @@
-import { httpLocal } from "../http-common";
+import http from "../http-common";
 
-const getMoviesList = () => {
-    return httpLocal.get("/api/movieslist");
+const getMovieList = () => {
+    return http.get("/api/movielist");
 }
 
 const movieServer = {
-    getMoviesList
+    getMovieList
 }
 
 export default movieServer;
