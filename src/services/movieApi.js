@@ -1,7 +1,7 @@
 import http from "../http-common";
 
 const getMovieList = () => {
-    return http.get("/api/movielist");
+    return http.get("/movie/movielist");
 }
 
 const movieServer = {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import ColorThief from 'colorthief';
-import { AudioContext } from "./AudioContext";
+import { AudioContext } from "../../components";
 
 const Lyrics = () => {
     const { currentSong, audioRef, currentLyc, setCurrentLyc, lyricList, lyricRefs, albumCovers } = useContext(AudioContext);
@@ -55,7 +55,7 @@ const Lyrics = () => {
         if (!userIsScrolling && lyricRefs.current[currentLyc] && lyricRefs.current[currentLyc].current) {
             const offsetTop = lyricRefs.current[currentLyc].current.offsetTop;
             const parentHeight = lyricRefs.current[currentLyc].current.parentElement.offsetHeight;
-            const scrollTop = offsetTop - parentHeight / 2 + 15;
+            const scrollTop = offsetTop - parentHeight / 2 + 20;
             lyricRefs.current[currentLyc].current.parentElement.scrollTop = scrollTop;
         }
     }, [currentLyc]);

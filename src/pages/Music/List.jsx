@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import { AudioContext } from "./AudioContext";
+import { AudioContext } from "../../components";
 
 const List = () => {
     const { files, musicPlaying, currentIndex, albumCovers } = useContext(AudioContext);

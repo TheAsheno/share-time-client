@@ -1,5 +1,6 @@
 import { createContext, useRef, useState, useEffect, createRef } from 'react';
-import musicServer from '../../services/musicApi';
+import { BASE_URL } from '../config/constants';
+import { musicServer } from '../services';
 
 export const AudioContext = createContext();
 
@@ -25,7 +26,7 @@ export const AudioProvider = ({ children }) => {
                 const newAlbumCovers = {};
                 files.forEach(song => {
                     if (!albumCovers[song.album]) {
-                        newAlbumCovers[song.album] = `http://localhost:3001/music/covers/${encodeURIComponent(song.album)}.jpg`;
+                        newAlbumCovers[song.album] = `${BASE_URL}/music/covers/${encodeURIComponent(song.album)}.jpg`;
                     }
                 });
                 setAlbumCovers(prev => ({ ...prev, ...newAlbumCovers }));
@@ -94,7 +95,7 @@ export const AudioProvider = ({ children }) => {
     }
     return (
         <AudioContext.Provider value={{ currentSong, audioRef, files, currentIndex, onPrev, onNext, musicPlaying, duration, volume, setVolume, isMuted, setIsMuted, isLooping, setIsLooping, currentLyc, setCurrentLyc, lyricList, lyricRefs, albumCovers }}>
-            <audio src={`http://localhost:3001/music/audios/${encodeURIComponent(currentSong.name)}.${currentSong.type}`} ref={audioRef} />
+            <audio src={`${BASE_URL}/music/audios/${encodeURIComponent(currentSong.name)}.${currentSong.type}`} ref={audioRef} />
             {children}
         </AudioContext.Provider>
     );

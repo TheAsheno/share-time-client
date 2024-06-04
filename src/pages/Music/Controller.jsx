@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
-import { AudioContext } from "./AudioContext";
+import { AudioContext } from "../../components";
 
 const Controller = ({ onChangeList}) => {
     const { currentSong, audioRef, onPrev, onNext, duration, volume, setVolume, isMuted, setIsMuted, isLooping, setIsLooping, albumCovers } = useContext(AudioContext);

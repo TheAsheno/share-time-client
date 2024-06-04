@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { initTimeline } from './index.js';
+import { initTimeline } from './index.jsx';
 
 const Timeline = () => {
     useEffect(() => {

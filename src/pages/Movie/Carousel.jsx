@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { initCarousel, handleMouseEnter } from './index.js';
+import { initCarousel, handleMouseEnter } from './animation';
+import { BASE_URL } from '../../config/constants';
 
 const Carousel = ({ MovieData }) => {
-    const images = MovieData.map(movie => movie.images);
+    const images = MovieData.map(movie => `${BASE_URL}/movie/images/${encodeURIComponent(movie.image)}`);
     useEffect(() => {
         initCarousel();
         return () => {

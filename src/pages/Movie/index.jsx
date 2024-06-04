@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import './style.css';
 import Carousel from "./Carousel";
 import Introduction from "./Introduction";
-import movieServer from '../../services/movieApi';
+import { movieServer } from '../../services';
 const imagesLoaded = require('imagesloaded');
 
 export default class Movie extends Component {
@@ -28,7 +28,7 @@ export default class Movie extends Component {
         };
         Promise.all([preloadImages(), preloadList()]).then(() => {
             const observer = new MutationObserver((mutationsList, observer) => {
-                for(let mutation of mutationsList) {
+                for (let mutation of mutationsList) {
                     if (mutation.type === 'childList') {
                         const moviepage = document.querySelector('.moviepage');
                         if (moviepage) {

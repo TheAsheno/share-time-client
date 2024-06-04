@@ -1,7 +1,7 @@
 import http from "../http-common";
 
 const getMusicList = () => {
-    return http.get("/api/musiclist");
+    return http.get("/music/musiclist");
 }
 
 const getLyrics = (song) => {

@@ -1,19 +1,8 @@
-import Navbar from "./Navbar/Navbar";
-import Movie from "./Movie/Movie";
-import Home from "./Home/Home";
-import Music from "./Music/Music";
-import Game from "./Game/Game";
-import Book from "./Book/Book";
-import Board from "./Board/Board";
-import { AudioProvider } from "./Music/AudioContext";
+import { AudioContext, AudioProvider } from "./AudioContext";
+import Navbar from "./Navbar";
 
 export {
+    AudioContext,
+    AudioProvider,
     Navbar,
-    Movie,
-    Home,
-    Music,
-    Game,
-    Book,
-    Board,
-    AudioProvider
 }

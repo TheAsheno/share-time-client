@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { BASE_URL } from '../../config/constants';
 
 const Item = ({ id, data }) => {
     const audioRef = useRef(null);
@@ -17,7 +18,7 @@ const Item = ({ id, data }) => {
         }
     };
     return (
-        <div id={id} className="movie-item" style={{ '--bg-img': `url(${data.background})` }}>
+        <div id={id} className="movie-item" style={{ '--bg-img': `url(${BASE_URL}/movie/images/${encodeURIComponent(data.background)})` }}>
             <div className="movie-text movie-text-hidden">
                 <p>{data.text}</p>
                 {data.text2 && <p>{data.text2}</p>}
@@ -29,7 +30,7 @@ const Item = ({ id, data }) => {
                 <p className="movie-name2">{data.name2}</p>
             </h2>
             <div className="movie-extra">
-                <audio ref={audioRef} src={`${data.bgm}`} />
+                <audio ref={audioRef} src={`${BASE_URL}/movie/bgm/${encodeURIComponent(data.bgm)}`} />
                 <i className={`bi bi-play-circle movie-bgm ${isPlaying ? '' : 'active'}`} onClick={onPlay} />
                 <i className={`bi bi-pause-circle movie-bgm ${isPlaying ? 'active' : ''}`} onClick={onPause} />
                 <i className="bi bi-box-arrow-up-right movie-link" onClick={() => window.open(`${data.link}`, "_blank")} />
