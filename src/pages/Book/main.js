@@ -83,7 +83,6 @@ FragmentsFx.prototype._createFragment = function (pos) {
 
 	return fragment;
 };
-
 FragmentsFx.prototype._positionFragment = function (pos, piece) {
 	const isRandom = this.options.area === 'random',
 		data = this.options.area[pos],

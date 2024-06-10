@@ -42,9 +42,6 @@ export default class Navbar extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link link-item" to="/board">Board</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link link-item" to="/">Doc</Link>
-                            </li>
                             <hr className="divider" style={{ border: 'none', borderTop: '2px solid #ffffff' }} />
                             <h6 className="dropdown-header font-weight-600 d-lg-none px-0">Social Media</h6>
                             <li className="nav-item">

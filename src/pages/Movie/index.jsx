@@ -15,11 +15,13 @@ export default class Movie extends Component {
 
     componentDidMount() {
         const preloadList = () => {
-            return movieServer.getMovieList()
-                .then(response => response.data)
-                .then(data => {
-                    this.setState({ MovieData: data });
-                });
+            return new Promise((resolve, reject) => {
+                movieServer.getMovieList()
+                    .then(response => response.data)
+                    .then(data => {
+                        this.setState({ MovieData: data }, resolve);
+                    });
+            })
         }
         const preloadImages = () => {
             return new Promise((resolve, reject) => {
@@ -27,18 +29,10 @@ export default class Movie extends Component {
             });
         };
         Promise.all([preloadImages(), preloadList()]).then(() => {
-            const observer = new MutationObserver((mutationsList, observer) => {
-                for (let mutation of mutationsList) {
-                    if (mutation.type === 'childList') {
-                        const moviepage = document.querySelector('.moviepage');
-                        if (moviepage) {
-                            moviepage.classList.remove('loading');
-                            observer.disconnect();
-                        }
-                    }
-                }
-            });
-            observer.observe(document.body, { childList: true, subtree: true });
+            const moviepage = document.getElementById('moviepage');
+            if (moviepage) {
+                moviepage.classList.remove('loading');
+            }
         });
     }
     render() {
@@ -47,7 +41,7 @@ export default class Movie extends Component {
             return <div>Loading...</div>;
         }
         return (
-            <div className="moviepage loading " style={{ animation: 'fadeIn 1s' }}>
+            <div id="moviepage" className="loading page">
                 <canvas className="canvas-background" />
                 <Carousel MovieData={MovieData} />
                 <Introduction MovieData={MovieData} />

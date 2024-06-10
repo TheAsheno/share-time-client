@@ -1,4 +1,4 @@
-.homepage {
+#homepage {
 	--color-text: #fff;
 	--color-bg: #000;
 	--color-link: #6c6c6c;
@@ -17,22 +17,6 @@
 	background-color: var(--color-bg);
 	position: relative;
     top: -50px;
-}
-
-a {
-	text-decoration: none;
-	color: var(--color-link);
-	outline: none;
-}
-
-a:hover,
-a:focus {
-	color: var(--color-link-hover);
-	outline: none;
-}
-
-main {
-	position: relative;
 }
 
 .frame {
@@ -134,10 +118,6 @@ main {
 
 .screen--clip-1 {
 	clip-path: var(--clip-1);
-}
-
-.screen--clip-2 {
-	clip-path: var(--clip-2);
 }
 
 .content {

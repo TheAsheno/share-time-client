@@ -25,7 +25,7 @@ export default class Home extends Component {
         };
         Promise.all([preloadImages(), preloadFonts()]).then(() => {
             new Navigation(document.querySelector('.menu'));
-            const homepage = document.querySelector('.homepage');
+            const homepage = document.getElementById('homepage');
             homepage.classList.remove('loading');
         });
     }
@@ -34,7 +34,7 @@ export default class Home extends Component {
     }
     render() {
         return (
-            <div className="homepage loading" style={{ animation: 'fadeIn 1s' }}>
+            <div id='homepage' className="loading page">
                 <div className="screens" aria-hidden="true">
                     <div className="screen-item" style={{ '--bg-img': 'url(images/1.jpg)' }}>
                         <div className="screen screen--full"></div>

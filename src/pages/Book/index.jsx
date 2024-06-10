@@ -17,12 +17,13 @@ export default class Book extends Component {
     }
     componentDidMount() {
         const preloadList = () => {
-            return bookServer.getBookList()
+            return new Promise((resolve, reject) => {
+                bookServer.getBookList()
                 .then(response => response.data)
                 .then(data => {
-                    this.setState({ BookData: data });
-                    this.setState({ dataLength: data.length});
+                    this.setState({ BookData: data, dataLength: data.length }, resolve);
                 });
+            })
         }
         const preloadImages = () => {
             return new Promise((resolve, reject) => {
@@ -30,26 +31,16 @@ export default class Book extends Component {
             });
         };
         Promise.all([preloadImages(), preloadList()]).then(() => {
-            const observer = new MutationObserver((mutationsList, observer) => {
-                for (let mutation of mutationsList) {
-                    if (mutation.type === 'childList') {
-                        const moviepage = document.querySelector('.bookpage');
-                        if (moviepage) {
-                            moviepage.classList.remove('loading');
-                            observer.disconnect();
-                        }
-                    }
-                }
-            });
-            observer.observe(document.body, { childList: true, subtree: true });
+            const moviepage = document.getElementById('bookpage');
+            if (moviepage) {
+                moviepage.classList.remove('loading');
+            }
         });
     }
     onNext = () => {
-        this.setState({ translate: false });
         this.setState(prevState => ({ currentContent: (prevState.currentContent + 1) % this.state.dataLength }));
     };
     onPrev = () => {
-        this.setState({ translate: false });
         this.setState(prevState => ({ currentContent: prevState.currentContent - 1 < 0 ? this.state.dataLength - 1 : prevState.currentContent - 1 }));
     };
     onTranslate = () => {
@@ -61,7 +52,7 @@ export default class Book extends Component {
             return <div>Loading...</div>;
         }
         return (
-            <div className='bookpage loading' style={{ animation: 'fadeIn 1s' }}>
+            <div id='bookpage' className='loading page'>
                 <Ui onNext={this.onNext} onPrev={this.onPrev} onTranslate={this.onTranslate} />
                 <Content key={this.state.currentContent} index={this.state.currentContent} BookData={BookData} isTranslate={this.state.translate} />
             </div>

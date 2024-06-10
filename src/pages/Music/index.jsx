@@ -5,7 +5,7 @@ import Player from './Player';
 export default class Music extends Component {
     render() {
         return (
-            <div style={{ animation: 'fadeIn 1s' }}>
+            <div className='musicpage page'>
                 <Player />
             </div>
         )

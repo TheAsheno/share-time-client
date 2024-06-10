@@ -37,7 +37,6 @@ function setupView() {
 
 export function handleClick(index) {
     return function () {
-        console.log('index', index, 'currentIndex', currentIndex);
         if (index === currentIndex) {
             const elementId = `movie-${index + 1}`;
             const element = document.getElementById(elementId);

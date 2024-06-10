@@ -291,6 +291,8 @@ input[type=range].volume-slider::-webkit-slider-thumb {
     padding: 20px;
     height: 69vh;
     width: 40vh;
+    overflow: auto;
+    scrollbar-width: none;
 }
 
 .music-list {

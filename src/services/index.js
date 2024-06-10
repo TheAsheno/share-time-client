@@ -1,11 +1,13 @@
-import userServer from "./userApi";
+import boardServer from "./boardApi";
 import musicServer from "./musicApi";
 import movieServer from "./movieApi";
-import bookServer from './bookApi'
+import bookServer from './bookApi';
+import gameServer from "./gameApi";
 
 export {
-    userServer,
+    boardServer,
     musicServer,
     movieServer,
-    bookServer
+    bookServer,
+    gameServer
 }

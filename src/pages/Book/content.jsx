@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import FragmentsFx from "./main.js";
-import { BASE_URL } from "../../config/constants.js";
+import { BASE_URL } from "../../config/constants";
 
 const Content = ({ index, BookData, isTranslate }) => {
     useEffect(() => {

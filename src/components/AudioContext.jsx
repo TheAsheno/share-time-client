@@ -23,15 +23,17 @@ export const AudioProvider = ({ children }) => {
             .then(response => response.data)
             .then(files => {
                 setFiles(files);
-                const newAlbumCovers = {};
-                files.forEach(song => {
-                    if (!albumCovers[song.album]) {
-                        newAlbumCovers[song.album] = `${BASE_URL}/music/covers/${encodeURIComponent(song.album)}.jpg`;
-                    }
-                });
-                setAlbumCovers(prev => ({ ...prev, ...newAlbumCovers }));
             });
     }, []);
+    useEffect(() => {
+        const newAlbumCovers = {};
+        files.forEach(song => {
+            if (!albumCovers[song.album]) {
+                newAlbumCovers[song.album] = `${BASE_URL}/music/covers/${encodeURIComponent(song.album)}.jpg`;
+            }
+        });
+        setAlbumCovers(prev => ({ ...prev, ...newAlbumCovers }));
+    }, [files]);
     useEffect(() => {
         if (!currentSong) {
             return;
